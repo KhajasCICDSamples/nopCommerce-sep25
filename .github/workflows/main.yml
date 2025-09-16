@@ -1,14 +1,14 @@
 ---
 on:
-   pull_request:
-      branches:
+    pull_request:
+        branches:
         - develop
-   workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
-   build:
-      runs-on: ubuntu-latest
-      steps:
+    build:
+        runs-on: ubuntu-latest
+        steps:
         - name: Setup dotnet
           uses: actions/setup-dotnet@v5
           with:
