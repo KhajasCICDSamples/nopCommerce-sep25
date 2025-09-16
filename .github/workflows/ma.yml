@@ -1,0 +1,28 @@
+name: Build NopCommerce
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest   # You could also use self-hosted Amazon Linux runner
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET 9.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore src/NopCommerce.sln
+
+      - name: Build in Release mode
+        run: dotnet build --configuration Release src/NopCommerce.sln --no-restore
+
+      - name: Run tests
+        run: dotnet test src/NopCommerce.sln --configuration Release --no-build
